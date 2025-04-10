@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "2810d3ca-aa72-48b8-8c23-76c626eef870",
+		"name": "Zippopotamus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CityinfoForUSPostalcode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Response contains post code\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('post code').that.is.a('string').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Response contains country\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('country').that.is.a('string').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Response contains country abbreviation\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('country abbreviation').that.is.a('string').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Response contains places array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('places').that.is.an('array').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a place name\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('place name').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a longitude\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('longitude').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a state\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('state').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a state abbreviation\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('state abbreviation').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a latitude\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('latitude').that.is.a('string').and.not.empty;",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"id": "dd9c3e26-d4d6-48be-8a9c-85ffb4453712"
+					}
+				}
+			],
+			"id": "05fcc4a2-7610-44f4-a356-f997701abdbb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.zippopotam.us/US/94536"
+			},
+			"response": []
+		},
+		{
+			"name": "CityinfoForCanada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"id": "728332fc-7cf1-47cf-ae30-24a68ade5fd6"
+					}
+				}
+			],
+			"id": "d25fc134-216f-412a-a41b-0b48f6451ee7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.zippopotam.us/CA/A0A"
+			},
+			"response": []
+		},
+		{
+			"name": "CityName with space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"        ",
+							"// Test to check if the response attribute 'place name' has only 'Los Angeles'",
+							"pm.test(\"Each place name in the response is 'Los Angeles'\", function () {",
+							"  pm.response.json().places.forEach(function(place) {",
+							"    pm.expect(place['place name']).to.eql('Los Angeles');",
+							"  });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"id": "62fb157c-40f1-4617-b945-ae9dc49e2976"
+					}
+				}
+			],
+			"id": "df0075e8-fdf7-4788-b9b3-73f087725c45",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.zippopotam.us/US/ca/Los Angeles"
+			},
+			"response": []
+		},
+		{
+			"name": "CityByState",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"        ",
+							"// Test to check if the response attribute 'place name' has only 'Los Angeles'",
+							"pm.test(\"Each place name in the response is 'Fremont'\", function () {",
+							"  pm.response.json().places.forEach(function(place) {",
+							"    pm.expect(place['place name']).to.eql('Fremont');",
+							"  });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"id": "f900200e-9bbc-4266-967a-f810d2d4ce30"
+					}
+				}
+			],
+			"id": "09b1c063-d365-4640-b409-948ff127bf50",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "api.zippopotam.us/us/CA/fremont"
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidPostalCode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"id": "cc9803e8-5c55-497c-ac7b-8156db079122"
+					}
+				}
+			],
+			"id": "1f176a3d-57b6-4158-bf66-868daf76cd3c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.zippopotam.us/US/627001"
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidCity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {",
+							"  pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"id": "65d0acd2-157b-468e-9ead-4145dc2a5a87"
+					}
+				}
+			],
+			"id": "6a7c5f86-3902-422c-b3fb-4975f118b0fd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.zippopotam.us/US/CA/tirunelveli"
+			},
+			"response": []
+		},
+		{
+			"name": "India",
+			"id": "66fcf51c-ff62-4dc2-a477-b5e9ba1da728",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.zippopotam.us/IN/627007"
+			},
+			"response": []
+		}
+	]
+}
