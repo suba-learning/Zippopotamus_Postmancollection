@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "2810d3ca-aa72-48b8-8c23-76c626eef870",
+		"name": "Zippopotamus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25648380",
+		"_collection_link": "https://crimson-trinity-283168.postman.co/workspace/Team-Workspace~264cad4d-96f1-4f33-8963-aebda17ca9e3/collection/25648380-2810d3ca-aa72-48b8-8c23-76c626eef870?action=share&source=collection_link&creator=25648380"
+	},
+	"item": [
+		{
+			"name": "CityinfoForUSPostalcode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Response contains post code\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('post code').that.is.a('string').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Response contains country\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('country').that.is.a('string').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Response contains country abbreviation\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('country abbreviation').that.is.a('string').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Response contains places array\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('places').that.is.an('array').and.not.empty;",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a place name\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('place name').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a longitude\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('longitude').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a state\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('state').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a state abbreviation\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('state abbreviation').that.is.a('string').and.not.empty;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Each place in places array has a latitude\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.places.forEach(function(place) {",
+							"        pm.expect(place).to.have.property('latitude').that.is.a('string').and.not.empty;",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/US/94536",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"US",
+						"94536"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CityinfoForCanada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/CA/A0A",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"CA",
+						"A0A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CityName with space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"        ",
+							"// Test to check if the response attribute 'place name' has only 'Los Angeles'",
+							"pm.test(\"Each place name in the response is 'Los Angeles'\", function () {",
+							"  pm.response.json().places.forEach(function(place) {",
+							"    pm.expect(place['place name']).to.eql('Los Angeles');",
+							"  });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/US/ca/Los Angeles",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"US",
+						"ca",
+						"Los Angeles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CityByState",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"        ",
+							"// Test to check if the response attribute 'place name' has only 'Los Angeles'",
+							"pm.test(\"Each place name in the response is 'Fremont'\", function () {",
+							"  pm.response.json().places.forEach(function(place) {",
+							"    pm.expect(place['place name']).to.eql('Fremont');",
+							"  });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "api.zippopotam.us/us/CA/fremont",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"us",
+						"CA",
+						"fremont"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidPostalCode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/US/627001",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"US",
+						"627001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidCity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {",
+							"  pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/US/CA/tirunelveli",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"US",
+						"CA",
+						"tirunelveli"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "India",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/IN/627007",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"IN",
+						"627007"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
